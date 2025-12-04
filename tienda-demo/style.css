@@ -263,4 +263,92 @@ nav a:hover { color: #EC1381; text-shadow: 0 0 10px rgba(236, 19, 129, 0.5); }
     .contact-wrapper { flex-direction: column; }
     nav { padding: 1rem; }
     .hero-banner h1 { font-size: 2.5rem; }
+
+}
+
+/* =========================================
+   CORRECCIONES RESPONSIVE (MODO MÓVIL)
+   ========================================= */
+
+/* 1. Prevención de desbordamiento global */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Esto corta obligatoriamente el espacio blanco extra */
+}
+
+/* Reglas solo para pantallas menores a 768px (Celulares) */
+@media (max-width: 768px) {
+
+    /* 2. Barra de Navegación Vertical */
+    nav {
+        flex-direction: column; /* Pone el logo arriba y los links abajo */
+        padding: 15px; /* Reduce el relleno lateral que causaba el desborde */
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap; /* Permite que los links bajen si no caben */
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 0.9rem; /* Letra un poco más pequeña */
+    }
+
+    /* 3. Hero Banner (Portada) */
+    .hero-banner h1 {
+        font-size: 2rem; /* Reduce el título gigante */
+        padding: 0 10px;
+        line-height: 1.2;
+    }
+    
+    .hero-banner p {
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+
+    /* 4. Catálogo (Market) */
+    .container {
+        padding: 20px 10px; /* Menos padding lateral */
+    }
+    
+    .grid-container {
+        /* Hacemos que en móvil quepan 2 productos por fila si es posible, o 1 grande */
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+        gap: 15px;
+    }
+
+    .product-card {
+        padding: 10px;
+    }
+    
+    .product-card img {
+        height: 150px; /* Imagen más baja para ahorrar espacio */
+    }
+
+    /* 5. Sección Contacto */
+    .contact-wrapper {
+        margin: 20px 10px; /* Se ajusta al borde de la pantalla */
+        width: auto;
+    }
+    
+    .contact-info, .contact-form-container {
+        padding: 25px; /* Menos relleno interno */
+    }
+
+    /* 6. Modales (Ventanas flotantes) */
+    .modal-content {
+        width: 95%; /* Que ocupe casi toda la pantalla */
+        margin: 15% auto;
+        padding: 20px;
+    }
+    
+    .credit-card-display {
+        padding: 15px; /* Tarjeta más compacta */
+    }
+    .card-number-display {
+        font-size: 1.1rem;
+    }
 }
