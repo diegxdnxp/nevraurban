@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneaker Store PRO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<nav>
+        <div class="logo">
+            <img src="img/logo.png" alt="Nevra Urban" class="logo-img">
+        </div>
+        <ul>
+            <li><a onclick="showSection('home')">Inicio</a></li>
+            <li><a onclick="showSection('market')">Market</a></li>
+            <li><a onclick="showSection('about')">Nosotros</a></li>
+            <li>
+                <a onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i> 
+                    <span id="cart-count">0</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="home" class="active-section">
+        <div class="hero-banner">
+            <h1>👟 Moda urbana con actitud</h1>
+            <p>✨ Estilo, comodidad y elegancia en cada paso.</p>
+            <button onclick="showSection('market')">Ver Colección</button>
+        </div>
+    </section>
+
+    <section id="market" class="hidden-section">
+        <div class="container">
+            <h2>Catálogo Exclusivo</h2>
+            <div id="product-grid" class="grid-container"></div>
+        </div>
+    </section>
+
+<section id="about" class="hidden-section">
+        <div class="contact-wrapper">
+            
+            <div class="contact-info">
+                <h3>Conecta con Nosotros</h3>
+                <p>¿Tienes dudas sobre tu talla o el envío? Estamos aquí para ayudarte a dominar las calles.</p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Av. 200 millas, Pachacutec, Lima</span>
+                </div>
+             <div class="info-item">
+                    <i class="fab fa-whatsapp"></i> 
+                    <a href="https://wa.link/5wrs7r" target="_blank" class="whatsapp-link">
+                        Contáctanos por WhatsApp
+                    </a>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contacto@nevraurban.com</span>
+                </div>
+
+                <div class="social-media">
+                    <p>Síguenos:</p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/nevraurban?igsh=NjBnYzd1OHVvYTBm"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/nevraurban?igsh=NjBnYzd1OHVvYTBm"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/nevraurban?igsh=NjBnYzd1OHVvYTBm"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/nevraurban?igsh=NjBnYzd1OHVvYTBm"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Mensaje enviado');">
+                    <h3>Envíanos un mensaje</h3>
+                    <div class="input-box">
+                        <input type="text" required>
+                        <label>Tu Nombre</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" required>
+                        <label>Tu Correo</label>
+                    </div>
+                    <div class="input-box">
+                        <textarea required></textarea>
+                        <label>¿En qué podemos ayudarte?</label>
+                    </div>
+                    <button type="submit" class="btn-send">Enviar Mensaje <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content small-modal">
+            <span class="close-btn" onclick="closeModal('product-modal')">&times;</span>
+            <h3 id="modal-product-name">Nombre Producto</h3>
+            <p id="modal-product-price" class="price-tag">s/.0.00</p>
+            
+            <div class="selection-group">
+                <label>Selecciona Talla:</label>
+                <div class="sizes-container" id="sizes-options">
+                    </div>
+            </div>
+
+            <div class="selection-group">
+                <label>Cantidad:</label>
+                <div class="qty-selector">
+                    <button onclick="adjustModalQty(-1)">-</button>
+                    <input type="number" id="modal-qty" value="1" readonly>
+                    <button onclick="adjustModalQty(1)">+</button>
+                </div>
+            </div>
+
+            <button onclick="confirmAddToCart()" class="btn-primary">Añadir al Carrito</button>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('cart-modal')">&times;</span>
+            <h2>Tu Carrito</h2>
+            <ul id="cart-items-list"></ul>
+            <div class="cart-summary">
+                <div class="total-row">
+                    <span>Total a Pagar:</span>
+                    <span id="cart-total">s/.0.00</span>
+                </div>
+                <button onclick="goToCheckout()" class="btn-checkout">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content payment-modal">
+            <span class="close-btn" onclick="closeModal('checkout-modal')">&times;</span>
+            
+            <div class="credit-card-display">
+                <div class="chip"></div>
+                <div class="card-number-display">**** **** **** ****</div>
+                <div class="card-details">
+                    <span>Juan Pérez</span>
+                    <span>00/00</span>
+                </div>
+            </div>
+
+            <h2>Detalles de Pago</h2>
+            <form id="payment-form" onsubmit="processPayment(event)">
+                <div class="input-group">
+                    <label>Titular de la tarjeta</label>
+                    <input type="text" placeholder="Como aparece en la tarjeta" required>
+                </div>
+                <div class="input-group">
+                    <label>Número de tarjeta</label>
+                    <div class="card-input-wrapper">
+                        <i class="far fa-credit-card"></i>
+                        <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label>Expiración</label>
+                        <input type="text" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="input-group">
+                        <label>CVV</label>
+                        <input type="password" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-pay">Pagar Ahora</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
